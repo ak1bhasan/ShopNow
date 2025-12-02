@@ -21,15 +21,16 @@ INSERT INTO categories (name, slug) VALUES
 ('Sports', 'sports');
 
 -- Insert sample products
-INSERT INTO products (category_id, name, description, price, stock) VALUES
-(1, 'Smartphone', 'Latest smartphone with advanced features', 599.99, 50),
-(1, 'Laptop', 'High-performance laptop for work and gaming', 1299.99, 30),
-(2, 'T-Shirt', 'Comfortable cotton t-shirt', 19.99, 100),
-(2, 'Jeans', 'Classic blue jeans', 49.99, 75),
-(3, 'Python Programming Book', 'Learn Python programming from scratch', 39.99, 25),
-(3, 'Web Development Guide', 'Complete guide to modern web development', 45.99, 20),
-(4, 'Garden Tools Set', 'Complete set of gardening tools', 79.99, 15),
-(5, 'Yoga Mat', 'Premium quality yoga mat', 29.99, 40);
+-- Insert products with image_url column
+INSERT INTO products (category_id, name, description, price, stock, image_url) VALUES
+(1, 'Smartphone', 'Latest smartphone with advanced features', 599.99, 50, 'https://images.pexels.com/photos/1786433/pexels-photo-1786433.jpeg'),
+(1, 'Laptop', 'High-performance laptop for work and gaming', 1299.99, 30, 'https://images.pexels.com/photos/7974/pexels-photo.jpg'),
+(2, 'T-Shirt', 'Comfortable cotton t-shirt', 19.99, 100, 'https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg'),
+(2, 'Jeans', 'Classic blue jeans', 49.99, 75, 'https://images.pexels.com/photos/52518/jeans-pants-blue-shop-52518.jpeg'),
+(3, 'Python Programming Book', 'Learn Python programming from scratch', 39.99, 25, 'https://images.pexels.com/photos/1181359/pexels-photo-1181359.jpeg'),
+(3, 'Web Development Guide', 'Complete guide to modern web development', 45.99, 20, 'https://images.pexels.com/photos/4974922/pexels-photo-4974922.jpeg'),
+(4, 'Garden Tools Set', 'Complete set of gardening tools', 79.99, 15, 'https://images.pexels.com/photos/20690251/pexels-photo-20690251.jpeg'),
+(5, 'Yoga Mat', 'Premium quality yoga mat', 29.99, 40, 'https://images.pexels.com/photos/4325462/pexels-photo-4325462.jpeg');
 
 -- Note: Product images should be added through the admin interface or seed.py script
 -- The seed.py script will handle password hashing and create proper relationships

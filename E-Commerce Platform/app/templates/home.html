@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10 text-center">
+      <h1 class="display-4">Welcome to E-Commerce Platform</h1>
+      <p class="lead mt-3">Find great products at great prices. Browse our catalog below.</p>
+      <a href="{{ url_for('products.index') }}" class="btn btn-primary btn-lg mt-3">Browse Products</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

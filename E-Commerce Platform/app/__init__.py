@@ -26,12 +26,14 @@ def create_app(config_object="config.DevConfig"):
 
     # Register blueprints
     from app.blueprints.auth import auth_bp
+    from app.blueprints.main import main_bp
     from app.blueprints.products import products_bp
     from app.blueprints.cart import cart_bp
     from app.blueprints.orders import orders_bp
     from app.blueprints.admin import admin_bp
 
     app.register_blueprint(auth_bp, url_prefix="/")
+    app.register_blueprint(main_bp, url_prefix="/")
     app.register_blueprint(products_bp, url_prefix="/")
     app.register_blueprint(cart_bp, url_prefix="/")
     app.register_blueprint(orders_bp, url_prefix="/")
