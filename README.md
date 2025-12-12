@@ -19,6 +19,26 @@ ShopNow is a server-rendered Flask e-commerce application backed by MySQL. It in
 - Admin: dashboard stats (sales/users/orders), low-stock alerts, order status updates.
 - Security: CSRF protection, upload validation, login gating.
 
+## Screenshots
+
+### Welcome Page
+![Welcome Page](screenshots/welcomepage.png)
+
+### Product Catalogue
+![Product Catalogue](screenshots/products.png)
+
+### Cart Page
+![Cart Page](screenshots/carts.png)
+
+### Orders / History
+![Orders / History](screenshots/orders_management.png)
+
+### Admin Dashboard
+![Admin Dashboard](screenshots/admindashboard.png)
+
+### Admin Add Product
+![Admin Add Product](screenshots/addproducts.png)
+
 ## Project Layout
 ```
 ShopNow/
