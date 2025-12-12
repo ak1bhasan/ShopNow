@@ -89,6 +89,10 @@ DATABASE_URI=mysql+pymysql://root:root@localhost:3306/ecommerce
 UPLOAD_FOLDER=app/static/uploads
 ALLOWED_IMAGE_EXTENSIONS=jpg,jpeg,png,webp
 MAX_CONTENT_LENGTH=5242880
+# Admin login (optional overrides; defaults shown)
+ADMIN_USERNAME=admin123@gmail.com
+ADMIN_PASSWORD=CSE_123
+ADMIN_EMAIL=admin@example.com
 ```
 - `DATABASE_URI` is required; the app will error if it’s missing.
 - Use `mysql+pymysql://user:pass@host:port/dbname`.
@@ -96,10 +100,9 @@ MAX_CONTENT_LENGTH=5242880
 ## Seeded Data & Logins
 - Customer (seed): `user@example.com` / `user123`
 - Admin email (seed): `admin@example.com` / `admin123`
-- Admin login page (`/admin/login`) uses username/password:
-  - Username: `Akib Hasan`
-  - Password: `CSE_123`
-  - First admin login creates/updates the `admin@example.com` user with that password.
+- Admin login page (`/admin/login`) uses username/password from env:
+  - `ADMIN_USERNAME` / `ADMIN_PASSWORD` (defaults shown above)
+  - First admin login creates/updates the `ADMIN_EMAIL` user with that password.
 
 ## Core Flows
 - Catalogue: `/` or `/products` (12 items per page), detail at `/product/<id>`.

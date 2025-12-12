@@ -33,6 +33,7 @@ instance/
 # IDE
 .vscode/
 .idea/
+tempCodeRunnerFile.py
 *.swp
 *.swo
 *~

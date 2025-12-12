@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify
 from flask_login import login_required
 from datetime import datetime
+from sqlalchemy import func, desc, case
 from app.models import User, Order, Product, Payment
 from app.extensions import db, csrf
 from app.utils import admin_required
-from sqlalchemy import func, desc
 
 admin_bp = Blueprint("admin", __name__)
 
@@ -38,7 +38,10 @@ def dashboard():
 @admin_required
 def products():
     """Admin: List all products."""
-    products = Product.query.order_by(Product.created_at.desc()).all()
+    products = Product.query.order_by(
+        case((Product.stock <= 0, 1), else_=0),
+        Product.name.asc(),
+    ).all()
     return render_template("admin/products.html", products=products)
 
 

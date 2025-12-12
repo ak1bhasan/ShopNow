@@ -1,3 +1,4 @@
+import os
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required, current_user
 from app.forms.auth_forms import RegistrationForm, LoginForm, ProfileForm, AdminLoginForm
@@ -85,28 +86,29 @@ def admin_login():
 
     form = AdminLoginForm()
     if form.validate_on_submit():
-        # Hardcoded admin credentials
-        ADMIN_USERNAME = "Akib Hasan"
-        ADMIN_PASSWORD = "CSE_123"
-        
+        # Admin credentials from environment with safe defaults
+        admin_username = os.environ.get("ADMIN_USERNAME", "admin123@gmail.com")
+        admin_password = os.environ.get("ADMIN_PASSWORD", "CSE_123")
+        admin_email = os.environ.get("ADMIN_EMAIL", "admin@example.com")
+
         # Check credentials exactly
-        if form.username.data == ADMIN_USERNAME and form.password.data == ADMIN_PASSWORD:
+        if form.username.data == admin_username and form.password.data == admin_password:
             # Find or create admin user in database
-            admin_user = User.query.filter_by(email="admin@example.com").first()
+            admin_user = User.query.filter_by(email=admin_email).first()
             if not admin_user:
                 # Create admin user if doesn't exist
                 admin_user = User(
-                    name=ADMIN_USERNAME,
-                    email="admin@example.com",
+                    name=admin_username,
+                    email=admin_email,
                     role="admin"
                 )
-                admin_user.set_password(ADMIN_PASSWORD)
+                admin_user.set_password(admin_password)
                 db.session.add(admin_user)
                 db.session.commit()
             else:
                 # Update admin user name and password if exists
-                admin_user.name = ADMIN_USERNAME
-                admin_user.set_password(ADMIN_PASSWORD)
+                admin_user.name = admin_username
+                admin_user.set_password(admin_password)
                 admin_user.role = "admin"
                 db.session.commit()
             

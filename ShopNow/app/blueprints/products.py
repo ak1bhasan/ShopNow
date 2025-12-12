@@ -8,6 +8,7 @@ from flask import (
     jsonify,
 )
 from flask_login import login_required
+from sqlalchemy import case
 from app.forms.product_forms import ProductForm
 from app.forms.cart_forms import AddToCartForm
 from app.models import Product, Category
@@ -23,7 +24,10 @@ products_bp = Blueprint("products", __name__)
 def index():
     page = request.args.get("page", 1, type=int)
     products = (
-        Product.query.order_by(Product.created_at.desc())
+        Product.query.order_by(
+            case((Product.stock <= 0, 1), else_=0),
+            Product.name.asc(),
+        )
         .paginate(page=page, per_page=12, error_out=False)
     )
     return render_template("product/list.html", products=products)
@@ -121,6 +125,7 @@ def admin_create():
         product = Product(
             name=form.name.data,
             category_id=form.category_id.data,
+            image_url=form.image_url.data or None,
             price=form.price.data,
             stock=form.stock.data,
             description=form.description.data,
@@ -142,6 +147,7 @@ def admin_edit(product_id):
     if form.validate_on_submit():
         product.name = form.name.data
         product.category_id = form.category_id.data
+        product.image_url = form.image_url.data or None
         product.price = form.price.data
         product.stock = form.stock.data
         product.description = form.description.data

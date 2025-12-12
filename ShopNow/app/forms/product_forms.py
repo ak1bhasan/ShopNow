@@ -9,7 +9,7 @@ from wtforms import (
     MultipleFileField,
     SubmitField,
 )
-from wtforms.validators import DataRequired, NumberRange
+from wtforms.validators import DataRequired, NumberRange, Optional, URL
 from app.models import Category
 
 
@@ -18,6 +18,11 @@ class ProductForm(FlaskForm):
 
     name = StringField("Product Name", validators=[DataRequired()])
     category_id = SelectField("Category", coerce=int, validators=[DataRequired()])
+    image_url = StringField(
+        "Image URL",
+        validators=[Optional(), URL(message="Enter a valid URL")],
+        render_kw={"placeholder": "https://example.com/image.jpg"},
+    )
     price = DecimalField(
         "Price", validators=[DataRequired(), NumberRange(min=0.01)], places=2
     )
