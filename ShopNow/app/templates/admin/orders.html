@@ -15,7 +15,7 @@
             <tr>
                 <th>Order ID</th>
                 <th>User</th>
-                <th>Date</th>
+                <th>Last Update</th>
                 <th>Items</th>
                 <th>Total</th>
                 <th>Status</th>
@@ -28,7 +28,7 @@
                 <tr>
                     <td>#{{ order.order_id }}</td>
                     <td>{{ order.user.name }}<br><small class="text-muted">{{ order.user.email }}</small></td>
-                    <td>{{ order.order_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td data-order-date="{{ order.order_id }}">{{ order.order_date.strftime('%Y-%m-%d %H:%M') }}</td>
                     <td>{{ order.items|length }} item(s)</td>
                     <td>${{ "%.2f"|format(order.total_price|float) }}</td>
                     <td>
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.disabled = true;
             
             try {
-                const response = await fetch(`/admin/order/${orderId}/status`, {
+                const response = await fetch(`/admin/order/${orderId}/update-status`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -100,6 +100,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Update badge
                     badge.textContent = newStatus;
                     badge.className = 'badge bg-' + getStatusColor(newStatus);
+                    // Update displayed date/time if provided
+                    if (result.updated_at) {
+                        const dateCell = document.querySelector(`[data-order-date="${orderId}"]`);
+                        if (dateCell) dateCell.textContent = result.updated_at;
+                    }
                     
                     // Show toast notification
                     showToast(`Order #${orderId} updated to ${newStatus}`, 'success');

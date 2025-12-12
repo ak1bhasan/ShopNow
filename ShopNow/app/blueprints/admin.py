@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify
 from flask_login import login_required
+from datetime import datetime
 from app.models import User, Order, Product, Payment
 from app.extensions import db, csrf
 from app.utils import admin_required
@@ -71,13 +72,16 @@ def update_order_status(order_id):
         return redirect(url_for("admin.orders"))
 
     order.status = new_status
+    # record latest update time
+    order.order_date = datetime.utcnow()
     db.session.commit()
     
     if request.is_json:
         return jsonify({
             "success": True,
             "message": f"Order #{order.order_id} status updated to {new_status}.",
-            "status": new_status
+            "status": new_status,
+            "updated_at": order.order_date.strftime("%Y-%m-%d %H:%M")
         })
     
     flash(f"Order #{order.order_id} status updated to {new_status}.", "success")

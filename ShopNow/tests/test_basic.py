@@ -1,17 +1,27 @@
 """
 Basic tests for E-Commerce Platform
 """
+import os
+
 import pytest
+from dotenv import load_dotenv
+
 from app import create_app
 from app.extensions import db
+
+load_dotenv()
 
 
 @pytest.fixture
 def app():
-    """Create application for testing."""
+    """Create application for testing with MySQL."""
+    uri = os.environ.get("DATABASE_URI")
+    if not uri:
+        pytest.skip("DATABASE_URI not set; skipping MySQL-dependent tests")
+
     app = create_app("config.DevConfig")
     app.config["TESTING"] = True
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
+    app.config["SQLALCHEMY_DATABASE_URI"] = uri
     app.config["WTF_CSRF_ENABLED"] = False
 
     with app.app_context():

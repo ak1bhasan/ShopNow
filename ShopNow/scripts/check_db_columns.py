@@ -5,10 +5,11 @@ Run with the project's venv active.
 import os
 from sqlalchemy import create_engine, inspect
 
-# Load DATABASE_URI from environment if set, otherwise use config.DevConfig default
-from config import DevConfig
-
-db_uri = os.environ.get("DATABASE_URI") or DevConfig.SQLALCHEMY_DATABASE_URI
+db_uri = os.environ.get("DATABASE_URI")
+if not db_uri:
+    raise RuntimeError(
+        "DATABASE_URI is not set. Set it to a MySQL URI before running this script."
+    )
 print("Using DB URI:", db_uri)
 
 engine = create_engine(db_uri)

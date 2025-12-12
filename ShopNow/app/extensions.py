@@ -1,3 +1,8 @@
+import pymysql
+
+# Ensure MySQLdb compatibility using PyMySQL
+pymysql.install_as_MySQLdb()
+
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
