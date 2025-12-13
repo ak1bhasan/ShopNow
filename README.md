@@ -1,4 +1,4 @@
-# ShopNow – Flask E-Commerce Platform
+# ShopNow
 
 ShopNow is a server-rendered Flask e-commerce application backed by MySQL. It includes authentication, catalogue, cart, checkout, simulated payments, and an admin dashboard. MySQL (e.g., XAMPP) is the only supported database.
 
@@ -145,3 +145,7 @@ Tests expect a MySQL `DATABASE_URI`; CSRF is disabled during tests.
 - Use a strong `SECRET_KEY`; set `FLASK_ENV=production`.
 - Run behind a WSGI server (Gunicorn/uWSGI), enable HTTPS, and use durable storage for uploads.
 - Rotate all demo/default credentials before any public deployment.
+
+## License
+
+This project is licensed under the MIT License.
