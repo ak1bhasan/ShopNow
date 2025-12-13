@@ -146,6 +146,12 @@ Tests expect a MySQL `DATABASE_URI`; CSRF is disabled during tests.
 - Run behind a WSGI server (Gunicorn/uWSGI), enable HTTPS, and use durable storage for uploads.
 - Rotate all demo/default credentials before any public deployment.
 
+## Database Schema (ER Diagram)
+
+![ShopNow ER Diagram](screenshots/ER-Diagram.png)
+
+The ER diagram shows how core entities—users, products, categories, carts, orders, payments—are linked to power browsing, checkout, and fulfillment. It illustrates how user sessions connect to carts and orders, how products map to categories and cart items, and how payments tie back to completed orders. Use it as a quick reference when modifying data flows or extending the MySQL schema.
+
 ## License
 
 This project is licensed under the MIT License.
